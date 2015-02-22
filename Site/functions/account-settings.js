@@ -9,7 +9,7 @@ module.exports.buildPage = (function(req, res, database) {
 });
 
 module.exports.changeEmail= (function(req, res, database){
-    if(req.body.newEmail == req.body.newEmail2)
+    if(req.body.newEmail == req.body.newEmail2) // Check if new e-mail matches confirmation e-mail
 	database.changeEmail(req.session.user.userid, req.body.newEmail, req.body.password1, function(success,error){
 	    if (error)
 	    {
@@ -18,16 +18,16 @@ module.exports.changeEmail= (function(req, res, database){
 	    }
 	    else
 	    {
-		req.session.user.email = req.body.newEmail;
-		console.log(req.session.user.email);
-		res.redirect("/me");
+		req.session.user.email = req.body.newEmail; // replace old email with new one
+		console.log(req.session.user.email);  // display email in console
+		res.redirect("/me"); // redirect to account seeting page
 	    }
 	});
     else
 	res.end ("new emails don't match, please try again"); // Make error landing page
 });
 
-module.exports.changeUsername= (function(req, res, database){
+module.exports.changeUsername= (function(req, res, database){ // same sysle as changeEmail
     if(req.body.newUsername == req.body.newUsername2)
 	database.changeUsername(req.session.user.userid, req.body.newUsername, req.body.password1, function(success,error) {
 	    if (error)
